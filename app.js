@@ -14,7 +14,7 @@ var Engine = Matter.Engine,
   // Render = Matter.Render,
   World = Matter.World,
   Bodies = Matter.Bodies;
-var grid = 1;
+var grid = 2;
 
 var engine;
 var world;
@@ -23,6 +23,8 @@ var obstacles = [];
 
 var wallleft;
 var wallright;
+var walltop;
+
 var ground;
 var Body = Matter.Body;
 
@@ -45,13 +47,11 @@ function setup() {
   };
   ground = Bodies.rectangle(width / 2, height, width, 10, options);
 
-  obs1 = Bodies.rectangle(width / 2, height / 2, width / 2, 10, options);
-
-  Body.rotate(obs1, 0.261799);
   wallleft = Bodies.rectangle(0, height / 2, 10, height, options);
   wallright = Bodies.rectangle(width, height / 2, 10, height, options);
+  walltop = Bodies.rectangle(width / 2, 0, width, 10, options);
 
-  World.add(world, [ground, obs1, wallleft, wallright]);
+  World.add(world, [ground, wallleft, wallright, walltop]);
 }
 
 function mouseDragged() {
@@ -59,14 +59,14 @@ function mouseDragged() {
   console.log(r, g, b);
 
   if (keyIsDown(17)) {
-    obstacles.push(new Obs(mouseX, mouseY, 1, 1));
+    obstacles.push(new Obs(mouseX, mouseY, 4, 4));
     if (r == 255 && g != 255 && b != 255) {
-      obstacles.push(new Obs(mouseX, mouseY, 1, 1));
+      obstacles.push(new Obs(mouseX, mouseY, 10, 10));
     }
   }
   if (keyIsDown(18)) {
     if (r == 255 && g != 0) {
-      boxes.push(new Box(mouseX, mouseY, 1, 1));
+      boxes.push(new Box(mouseX, mouseY, 2, 2));
     }
   }
 }
@@ -87,18 +87,11 @@ function draw() {
 
   rect(wallleft.position.x, wallleft.position.y, 10, height);
   rect(wallright.position.x, wallright.position.y, 10, height);
-  push();
-  translate(obs1.position.x, obs1.position.y);
-  rotate(0.261799);
-  rect(0, 0, width / 2, 10);
-
-  fill(255);
-
-  pop();
+  rect(walltop.position.x, walltop.position.y, width, 10);
 
   textSize(20);
   fill(0);
-  text(gravitystate, 10, 20);
+  text(gravitystate, 10, 25);
 }
 
 function keyPressed() {
