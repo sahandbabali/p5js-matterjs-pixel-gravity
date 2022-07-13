@@ -1,4 +1,4 @@
-// Daniel Shiffman
+// Baed on a tutorial by Daniel Shiffman
 // http://codingtra.in
 // http://patreon.com/codingtrain
 // Code for: https://youtu.be/urR596FsU68
